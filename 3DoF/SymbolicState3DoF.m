@@ -12,6 +12,7 @@
 g = 9.81;
 
 syms mass L I;
+c = [mass; L; I]
 r = sym("r", [2;1]);
 v = sym("v", [2;1]);
 theta = sym("theta", 1);
@@ -37,11 +38,11 @@ j_a = jacobian(xdot, x);
 j_b = jacobian(xdot, u);
 
 % Create equations of motion function for optimizer
-matlabFunction(xdot,"File","3DoF/SymDynamics3DoF","Vars",[x; u; mass; L; I]);
+matlabFunction(xdot,"File","3DoF/SymDynamics3DoF","Vars",{[x]; [u]; [c]});
 
 % Create equations of motion block for Simulink model
-matlabFunctionBlock('EoM_3DoF/SymDynamics3DoF',xdot,'Vars',[x; u; mass; L; I])
+matlabFunctionBlock('EoM_3DoF/SymDynamics3DoF',xdot,'Vars',{[x]; [u]; [c]})
 
 % Create Jacobian functions for Kalman filter
-matlabFunction(j_a,"File","3DoF/SymXJacobian3DoF","Vars",[x; u; mass; L; I]);
-matlabFunction(j_b,"File","3DoF/SymUJacobian3DoF","Vars",[x; u; mass; L; I]);
+matlabFunction(j_a,"File","3DoF/SymXJacobian3DoF","Vars",{[x]; [u]; [c]});
+matlabFunction(j_b,"File","3DoF/SymUJacobian3DoF","Vars",{[x]; [u]; [c]});

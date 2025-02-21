@@ -56,7 +56,11 @@ xdot_func6q = matlabFunction(x_dot);
 j_a_func6q = matlabFunction(j_a);
 j_b_func6q = matlabFunction(j_b);
 
-save("quaternion_6dof.m", "xdot_func6q", "j_a_func6q", "j_b_func6q")
-save("SymDynamics6DoFQ.m", "xdot_func6q")
-save("SymUJacobian6DoFQ.m", "j_b_func6q")
-save("SymXJacobian6DoFQ.m", "j_a_func6q")
+matlabFunction(x_dot, "File", "SymDynamics6DoF_q", "Vars", {[x], [u], [c]})
+matlabFunction(j_a, "File", "SymDynamics6DoF_j_a_q", "Vars", {[x], [u], [c]})
+matlabFunction(j_b, "File", "SymDynamics6DoF_j_b_q", "Vars", {[x], [u], [c]})
+
+% save("SymDynamics6DoFQ.m", "xdot_func6q")
+% save("SymUJacobian6DoFQ.m", "j_b_func6q")
+% save("SymXJacobian6DoFQ.m", "j_a_func6q")
+% save("quaternion_6dof.m", "xdot_func6q", "j_a_func6q", "j_b_func6q")
